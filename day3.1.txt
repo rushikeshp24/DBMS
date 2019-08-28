@@ -1,0 +1,300 @@
+|        1 | Ruchika   | Virendra | Gotmare  | 2019-08-27 | ruchikagotmare97@gmail.com   | 7020141667 | Regular  |
+|        2 | Rushikesh | Wasudeo  | Paunikar | 2019-08-27 | rushikesh.paunikar@gmail.com | 9420476499 | Premium  |
+|        3 | Ashwini   | Vasanta  | Dharmik  | 2019-08-27 | ashudharmik05@gmail.com      | 8329886552 | Silver   |
+|        4 | Durgesh   | Kishor   | Patil    | 2019-08-27 | Durgeshp199983@gmail.com     | 8329886552 | Regular  |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO Member
+    -> (FName,MName, LName, Mem_DOJ, Email, Phone, mem_type)
+    -> VALUES
+    -> ('Raju','','',now(), 'Durgeshp199983@gmail.com', '8329886552','1');
+ERROR 1062 (23000): Duplicate entry 'Durgeshp199983@gmail.com' for key 'Member_email_uq'
+mysql> INSERT INTO Member
+    -> (FName,MName, LName, Mem_DOJ, Email, Phone, mem_type)
+    -> VALUES
+    -> ('Raju',NULL,'',now(), 'Durgeshp199983@gmail.com', '8329886552','1');
+ERROR 1062 (23000): Duplicate entry 'Durgeshp199983@gmail.com' for key 'Member_email_uq'
+mysql> INSERT INTO Member
+    -> (FName,MName, LName, Mem_DOJ, Email, Phone, mem_type)
+    -> VALUES
+    -> ('Raju',NULL,'',now(), 'Durgeshp19998gmail.com', '8329886552','1');
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> SELECT * FROM Member;
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+| MemberID | FName     | MName    | LName    | Mem_DOJ    | Email                        | Phone      | mem_type |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+|        1 | Ruchika   | Virendra | Gotmare  | 2019-08-27 | ruchikagotmare97@gmail.com   | 7020141667 | Regular  |
+|        2 | Rushikesh | Wasudeo  | Paunikar | 2019-08-27 | rushikesh.paunikar@gmail.com | 9420476499 | Premium  |
+|        3 | Ashwini   | Vasanta  | Dharmik  | 2019-08-27 | ashudharmik05@gmail.com      | 8329886552 | Silver   |
+|        4 | Durgesh   | Kishor   | Patil    | 2019-08-27 | Durgeshp199983@gmail.com     | 8329886552 | Regular  |
+|        7 | Raju      | NULL     |          | 2019-08-27 | Durgeshp19998gmail.com       | 8329886552 | Regular  |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO Member
+    -> (FName,MName, LName, Mem_DOJ, Email, Phone, mem_type)
+    -> VALUES
+    -> ('Raju',NULL,now(), 'Durgeshp199983@gmail.com', '8329886552','1');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> DELETE ROW WHERE MemberID=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE
+ MemberID=7' at line 1
+mysql> DELETE FROM Member WHERE MemberID=7;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM Member;
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+| MemberID | FName     | MName    | LName    | Mem_DOJ    | Email                        | Phone      | mem_type |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+|        1 | Ruchika   | Virendra | Gotmare  | 2019-08-27 | ruchikagotmare97@gmail.com   | 7020141667 | Regular  |
+|        2 | Rushikesh | Wasudeo  | Paunikar | 2019-08-27 | rushikesh.paunikar@gmail.com | 9420476499 | Premium  |
+|        3 | Ashwini   | Vasanta  | Dharmik  | 2019-08-27 | ashudharmik05@gmail.com      | 8329886552 | Silver   |
+|        4 | Durgesh   | Kishor   | Patil    | 2019-08-27 | Durgeshp199983@gmail.com     | 8329886552 | Regular  |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| BookID   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| BookName | varchar(50)  | NO   |     | NULL    |                |
+| Price    | decimal(6,2) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT * FROM book;
+Empty set (0.00 sec)
+
+mysql> ALTER TABLE book
+    -> ADD COLUMN Author varchar(30) not null;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE book
+    -> MODIFY COLUMN Author char(30) not null;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| BookID   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| BookName | varchar(50)  | NO   |     | NULL    |                |
+| Price    | decimal(6,2) | YES  |     | NULL    |                |
+| Author   | char(30)     | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> ALTER TABLE book
+    -> DROP COLUMN Author;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| BookID   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| BookName | varchar(50)  | NO   |     | NULL    |                |
+| Price    | decimal(6,2) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> ALTER TABLE book
+    -> ADD COLUMN Author char(30) not null;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO book
+    -> (BookName,price)
+    -> VALUES
+    -> ('Think and grow rich','250','Napoleon Hill'),
+    -> ('Dream 2020','370','Rishikesh');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| BookID   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| BookName | varchar(50)  | NO   |     | NULL    |                |
+| Price    | decimal(6,2) | YES  |     | NULL    |                |
+| Author   | char(30)     | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO book
+    -> (BookName,price)
+    -> VALUES
+    -> ('Think and grow rich','250','Napoleon Hill'),
+    -> ('Dream 2020','370.23','Rishikesh')
+    -> ;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> ('Think and grow rich','250','Napoleon Hill'),
+    -> ('Dream 2020','370','Rishikesh');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Thin
+k and grow rich','250','Napoleon Hill'),
+('Dream 2020','370','Rishikesh')' at line 3
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Think and grow rich','250','Napoleon Hill'),
+    -> ('Dream 2020','370.23','Rishikesh');
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| BookID   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| BookName | varchar(50)  | NO   |     | NULL    |                |
+| Price    | decimal(6,2) | YES  |     | NULL    |                |
+| Author   | char(30)     | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM book;
++--------+---------------------+--------+---------------+
+| BookID | BookName            | Price  | Author        |
++--------+---------------------+--------+---------------+
+|      1 | Think and grow rich | 250.00 | Napoleon Hill |
+|      2 | Dream 2020          | 370.23 | Rishikesh     |
++--------+---------------------+--------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Live Laugh Love','250','Ruchika'),
+    -> ('DEEP','2800','Ruchika'),
+    -> ('Time pass','NULL','Mrunakshi');
+ERROR 1366 (HY000): Incorrect decimal value: 'NULL' for column 'Price' at row 3
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Live Laugh Love','250','Ruchika'),
+    -> ('DEEP','2800','Ruchika'),
+    -> ('Time pass',NULL,'Mrunakshi');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> DELETE FROM Book
+    -> ;
+Query OK, 5 rows affected (0.03 sec)
+
+mysql> SELECT * FROM book;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Think and grow rich','250','Napoleon Hill'),
+    -> ('Dream 2020','370.23','Rishikesh');
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Live Laugh Love','250','Ruchika'),
+    -> ('DEEP','2800','Ruchika'),
+    -> ('Time pass','NULL','Mrunakshi');
+ERROR 1366 (HY000): Incorrect decimal value: 'NULL' for column 'Price' at row 3
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Live Laugh Love','250','Ruchika'),
+    -> ('DEEP','2800','Ruchika'),
+    -> ('Time pass',-250,'Mrunakshi');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      9 | Think and grow rich |  250.00 | Napoleon Hill |
+|     10 | Dream 2020          |  370.23 | Rishikesh     |
+|     14 | Live Laugh Love     |  250.00 | Ruchika       |
+|     15 | DEEP                | 2800.00 | Ruchika       |
+|     16 | Time pass           | -250.00 | Mrunakshi     |
++--------+---------------------+---------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE Book
+    -> WHERE BookID=16;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE
+ BookID=16' at line 2
+mysql> DELETE FROM Book
+    -> WHERE BookID=16;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      9 | Think and grow rich |  250.00 | Napoleon Hill |
+|     10 | Dream 2020          |  370.23 | Rishikesh     |
+|     14 | Live Laugh Love     |  250.00 | Ruchika       |
+|     15 | DEEP                | 2800.00 | Ruchika       |
++--------+---------------------+---------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> TRUNCATE book;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM book;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Think and grow rich','250','Napoleon Hill'),
+    -> ('Dream 2020','370.23','Rishikesh');
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO book
+    -> VALUES
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at
+line 2
+mysql> INSERT INTO book
+    -> (BookName,price,author)
+    -> VALUES
+    -> ('Live Laugh Love','250','Ruchika'),
+    -> ('DEEP','2800','Shantanu'),
+    -> ('Time pass',-250,'Mrunakshi'),
+    -> ('Dream 2020',NULL,'Rishikesh');
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      1 | Think and grow rich |  250.00 | Napoleon Hill |
+|      2 | Dream 2020          |  370.23 | Rishikesh     |
+|      3 | Live Laugh Love     |  250.00 | Ruchika       |
+|      4 | DEEP                | 2800.00 | Shantanu      |
+|      5 | Time pass           | -250.00 | Mrunakshi     |
+|      6 | Dream 2020          |    NULL | Rishikesh     |
++--------+---------------------+---------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> DROP TABLE book;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM book;
+ERROR 1146 (42S02): Table 'day3.book' doesn't exist
+mysql> ALTER TABLE book
+    -> DROP CONSTRAINT Book_Price_CHK;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CONST
+RAINT Book_Price_CHK' at line 2
+mysql>

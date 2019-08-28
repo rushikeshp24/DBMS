@@ -1,0 +1,206 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE day3;
+Database changed
+mysql> SELECT *
+    -> FROM book;
+ERROR 1146 (42S02): Table 'day3.book' doesn't exist
+mysql> SHOW DATABASES;
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| day3                |
+| etour               |
+| karande             |
+| logindb             |
+| mydb                |
+| mysql               |
+| omkar               |
+| sid                 |
+| test                |
+| vehicleconfigurator |
+| vita                |
++---------------------+
+12 rows in set (0.00 sec)
+
+mysql> USE day3
+Database changed
+mysql> DESCRIBE day3;
+ERROR 1146 (42S02): Table 'day3.day3' doesn't exist
+mysql> show table day3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'day3'
+ at line 1
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at
+line 1
+mysql> show tables;
++----------------+
+| Tables_in_day3 |
++----------------+
+| member         |
+| test           |
++----------------+
+2 rows in set (0.08 sec)
+
+mysql> select * from member;
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+| MemberID | FName     | MName    | LName    | Mem_DOJ    | Email                        | Phone      | mem_type |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+|        1 | Ruchika   | Virendra | Gotmare  | 2019-08-27 | ruchikagotmare97@gmail.com   | 7020141667 | Regular  |
+|        2 | Rushikesh | Wasudeo  | Paunikar | 2019-08-27 | rushikesh.paunikar@gmail.com | 9420476499 | Premium  |
+|        3 | Ashwini   | Vasanta  | Dharmik  | 2019-08-27 | ashudharmik05@gmail.com      | 8329886552 | Silver   |
+|        4 | Durgesh   | Kishor   | Patil    | 2019-08-27 | Durgeshp199983@gmail.com     | 8329886552 | Regular  |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+4 rows in set (0.08 sec)
+
+mysql> select * from book;
+ERROR 1146 (42S02): Table 'day3.book' doesn't exist
+mysql> select * from test;
+Empty set (0.06 sec)
+
+mysql> CREATE TABLE Book
+    -> (
+    -> BookID int AUTO_INCREMENT
+    -> primary key,
+    -> BookName varchar(50) not null,
+    -> Price decimal(6,2)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> ALTER TABLE Book
+    -> ADD COLUMN Author varchar(40)
+    -> not null;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Book
+    -> MODIFY COLUMN Author(30)
+    -> not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(30)
+not null' at line 2
+mysql> ALTER TABLE Book
+    -> MODIFY COLUMN Author(30)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(30)'
+ at line 2
+mysql> ALTER TABLE Book
+    -> MODIFY COLUMN Author char(30);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Book
+    -> (BookName, Price, Author)
+    -> VAlUES
+    -> ('Think and Grow Rich','250', 'Napolean Hill' )
+    -> ('Dream 2020','350', 'Hill' ),
+    -> ('Target2020','-450', 'Shanu' );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('Dre
+am 2020','350', 'Hill' ),
+('Target2020','-450', 'Shanu' )' at line 5
+mysql> INSERT INTO Book
+    -> (BookName, Price, Author)
+    -> VAlUES
+    -> ('Think and Grow Rich','250', 'Napolean Hill' ),
+    -> ('Dream 2020','350', 'Hill' ),
+    -> ('Target2020','-450', 'shann' ),
+    -> ('Life of Pie',NULL, 'Ruchika' );
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Book
+    -> DROP CONSTRAINT Book_Price_CHK;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CONST
+RAINT Book_Price_CHK' at line 2
+mysql> ALTER TABLE Book
+    -> ADD CONSTRAINT Book_Price_CHK
+    -> CHECK (Price>=200
+    -> AND Price<=3000);
+Query OK, 4 rows affected (0.09 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      1 | Think and Grow Rich |  250.00 | Napolean Hill |
+|      2 | Dream 2020          |  350.00 | Hill          |
+|      3 | Target2020          | -450.00 | shann         |
+|      4 | Life of Pie         |    NULL | Ruchika       |
++--------+---------------------+---------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Book
+    -> ADD CONSTRAINT Book_Price_CHK
+    -> CHECK (Price BETWEEN 200 AND 3000);
+Query OK, 4 rows affected (0.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Book
+    -> (BookName, Price, Author)
+    -> VALUES
+    -> ('HTML5',NULL,'ABCD'),
+    -> ('.NET','100','EFGH'),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at
+line 5
+mysql> INSERT INTO Book
+    -> VALUES
+    -> ('HTML5',NULL,'ABCD'),
+    -> ('.NET','100','EFGH');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO Book
+    -> (BookName, Price, Author)
+    -> VALUES
+    -> ('HTML5',NULL,'ABCD'),
+    -> ('.NET','100','EFGH');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      1 | Think and Grow Rich |  250.00 | Napolean Hill |
+|      2 | Dream 2020          |  350.00 | Hill          |
+|      3 | Target2020          | -450.00 | shann         |
+|      4 | Life of Pie         |    NULL | Ruchika       |
+|      5 | HTML5               |    NULL | ABCD          |
+|      6 | .NET                |  100.00 | EFGH          |
++--------+---------------------+---------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> DELETE FROM Book WHERE BookID = 6;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * FROM Book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      1 | Think and Grow Rich |  250.00 | Napolean Hill |
+|      2 | Dream 2020          |  350.00 | Hill          |
+|      3 | Target2020          | -450.00 | shann         |
+|      4 | Life of Pie         |    NULL | Ruchika       |
+|      5 | HTML5               |    NULL | ABCD          |
++--------+---------------------+---------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE T1
+    -> (Price Decimal(6,2)
+    -> CONSTRAINT T1_CHK
+    -> CHECK (Price BETWEEN 200 AND 300)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CONST
+RAINT T1_CHK
+CHECK (Price BETWEEN 200 AND 300)
+)' at line 3
+mysql> INSERT INTO T1
+    -> VALUES
+    -> (100);
+ERROR 1146 (42S02): Table 'day3.t1' doesn't exist
+mysql>

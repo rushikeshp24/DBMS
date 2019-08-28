@@ -1,0 +1,300 @@
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> CREATE TABLE BookTran
+    -> (
+    -> TrnID int AUTO_INCREMENT Primary key,
+    -> TrnDate datetime,
+    -> Book(BookId),
+    -> MemberID int,
+    -> CONSTRAINT BookTran_MemberID_FK
+    -> FOREIGN KEY (MemberID)
+    -> REFERENCES Member(MemberID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(Book
+Id),
+MemberID int,
+CONSTRAINT BookTran_MemberID_FK
+FOREIGN KEY (MemberID)
+R' at line 5
+mysql> CREATE TABLE BookTran
+    -> (
+    -> TrnID int AUTO_INCREMENT Primary key,
+    -> TrnDate datetime,
+    -> BookID int REFERENCES
+    -> Book(BookId),
+    -> MemberID int,
+    -> CONSTRAINT BookTran_MemberID_FK
+    -> FOREIGN KEY (MemberID)
+    -> REFERENCES Member(MemberID)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> describe BookTran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  |     | NULL    |                |
+| MemberID | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
+
+mysql> CREATE TABLE BookTran
+    -> (
+    -> TrnID int AUTO_INCREMENT primary key,
+    -> TrnDate datetime,
+    -> BookID int REFRENCES
+    -> Book(BookID),
+    -> MemberID int REFRENCES
+    -> Member(MemberID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFRE
+NCES
+Book(BookID),
+MemberID int REFRENCES
+Member(MemberID)
+)' at line 5
+mysql> CREATE TABLE BookTran
+    -> (
+    -> TrnID int AUTO_INCREMENT primary key,
+    -> TrnDate datetime,
+    -> BookID int REFERENCES
+    -> Book(BookID),
+    -> MemberID int REFERENCES
+    -> Member(MemberID)
+    -> );
+ERROR 1050 (42S01): Table 'booktran' already exists
+mysql> DROP TABLE BookTran;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE BookTran
+    -> (
+    -> TrnID int AUTO_INCREMENT primary key,
+    -> TrnDate datetime,
+    -> BookID int REFERENCES
+    -> Book(BookID),
+    -> MemberID int REFERENCES
+    -> Member(MemberID)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> SELECT * FROM BookTran;
+Empty set (0.00 sec)
+
+mysql> describe booktran
+    -> ;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  |     | NULL    |                |
+| MemberID | int(11)  | YES  |     | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> DROP TABLE BookTran;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE BookTran
+    -> (
+    -> TrnID int AUTO_INCREMENT primary key,
+    -> TrnDate datetime,
+    -> BookID int,
+    -> MemberID int,
+    -> CONSTRAINT BookTran_BookID_FK
+    -> FOREIGN KEY(BookID)
+    -> REFERENCES Book(BookID),
+    -> CONSTRAINT BookTran_MemberID_FK
+    -> FOREIGN KEY(MemberID)
+    -> REFERENCES Member(MemberID)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> describe booktran
+    -> ;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  | MUL | NULL    |                |
+| MemberID | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
+
+mysql> INSER INTO BookTran
+    -> (TrnDate,BookID,MemberID)
+    -> VALUES
+    -> (Now(),4,1),
+    -> (Now(),5,10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSER
+ INTO BookTran
+(TrnDate,BookID,MemberID)
+VALUES
+(Now(),4,1),
+(Now(),5,10)' at line 1
+mysql> INSER INTO BookTran
+    -> (TrnDate,BookID,MemberID)
+    -> VALUES
+    -> (NOW(),4,1),
+    -> (NOW(),5,10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSER
+ INTO BookTran
+(TrnDate,BookID,MemberID)
+VALUES
+(NOW(),4,1),
+(NOW(),5,10)' at line 1
+mysql> INSERT INTO BookTran
+    -> (TrnDate,BookID,MemberID)
+    -> VALUES
+    -> (NOW(),4,1),
+    -> (NOW(),5,10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`day3`.`booktran`, CONSTRAINT `BookTran_MemberID_FK` FOREIGN KEY (`MemberI
+D`) REFERENCES `member` (`MemberID`))
+mysql> .
+    -> desc booktran;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.
+desc booktran' at line 1
+mysql> desc booktran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  | MUL | NULL    |                |
+| MemberID | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> desc book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| BookID   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| BookName | varchar(50)  | NO   |     | NULL    |                |
+| Price    | decimal(6,2) | YES  |     | NULL    |                |
+| Author   | char(30)     | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      1 | Think and Grow Rich |  250.00 | Napolean Hill |
+|      2 | Dream 2020          |  350.00 | Hill          |
+|      3 | Target2020          | -450.00 | shann         |
+|      4 | Life of Pie         |    NULL | Ruchika       |
+|      5 | HTML5               |    NULL | ABCD          |
++--------+---------------------+---------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> desc member;
++----------+-------------------------------------------+------+-----+---------+----------------+
+| Field    | Type                                      | Null | Key | Default | Extra          |
++----------+-------------------------------------------+------+-----+---------+----------------+
+| MemberID | int(11)                                   | NO   | PRI | NULL    | auto_increment |
+| FName    | varchar(20)                               | NO   |     | NULL    |                |
+| MName    | varchar(10)                               | YES  |     | NULL    |                |
+| LName    | varchar(20)                               | NO   |     | NULL    |                |
+| Mem_DOJ  | date                                      | YES  |     | NULL    |                |
+| Email    | varchar(30)                               | YES  | UNI | NULL    |                |
+| Phone    | char(10)                                  | YES  |     | NULL    |                |
+| mem_type | enum('Regular','Silver','Gold','Premium') | YES  |     | NULL    |                |
++----------+-------------------------------------------+------+-----+---------+----------------+
+8 rows in set (0.02 sec)
+
+mysql> select * from member;
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+| MemberID | FName     | MName    | LName    | Mem_DOJ    | Email                        | Phone      | mem_type |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+|        1 | Ruchika   | Virendra | Gotmare  | 2019-08-27 | ruchikagotmare97@gmail.com   | 7020141667 | Regular  |
+|        2 | Rushikesh | Wasudeo  | Paunikar | 2019-08-27 | rushikesh.paunikar@gmail.com | 9420476499 | Premium  |
+|        3 | Ashwini   | Vasanta  | Dharmik  | 2019-08-27 | ashudharmik05@gmail.com      | 8329886552 | Silver   |
+|        4 | Durgesh   | Kishor   | Patil    | 2019-08-27 | Durgeshp199983@gmail.com     | 8329886552 | Regular  |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> INSER INTO BookTran
+    -> (TrnDate,BookID,MemberID)
+    -> VALUES
+    -> (Now(),4,1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSER
+ INTO BookTran
+(TrnDate,BookID,MemberID)
+VALUES
+(Now(),4,1)' at line 1
+mysql> desc booktran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  | MUL | NULL    |                |
+| MemberID | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSER INTO BookTran
+    -> (TrnDate,BookID,MemberID)
+    -> VALUES
+    -> (Now(),1,1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSER
+ INTO BookTran
+(TrnDate,BookID,MemberID)
+VALUES
+(Now(),1,1)' at line 1
+mysql> INSER INTO BookTran
+    -> INSER INTO BookTran;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSER
+ INTO BookTran
+INSER INTO BookTran' at line 1
+mysql> INSER INTO BookTran
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSER
+ INTO BookTran' at line 1
+mysql> INSERT INTO BookTran
+    -> values(now(),1,1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO BookTran
+    -> (TrnDate,BookId,MemberID)
+    -> VAlues
+    -> (now(),1,1);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Describe booktran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  | MUL | NULL    |                |
+| MemberID | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
+
+mysql> SELECT * FROM Booktran;
++-------+---------------------+--------+----------+
+| TrnID | TrnDate             | BookID | MemberID |
++-------+---------------------+--------+----------+
+|     3 | 2019-08-27 20:39:56 |      1 |        1 |
++-------+---------------------+--------+----------+
+1 row in set (0.00 sec)
+
+mysql>
